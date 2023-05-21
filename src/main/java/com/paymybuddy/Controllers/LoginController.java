@@ -9,7 +9,7 @@ public class LoginController
 
 {
     @RolesAllowed("USER")
-    @RequestMapping("/*")
+    @RequestMapping("/tt")
     public String getUser()
     {
         return "Welcome User";

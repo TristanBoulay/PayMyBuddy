@@ -1,10 +1,9 @@
 package com.paymybuddy.Services;
 
-import com.paymybuddy.Models.Friendship;
 import com.paymybuddy.Models.User;
 import com.paymybuddy.Repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,18 +32,30 @@ public class UserService {
     public List<String> getFriendNameList(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("cet utilisateur n'existe pas"));
-
         List<String> friendList = new ArrayList<>();
-        for (Friendship friendship : user.getFriends()) {
-            Long friendId = friendship.getSenderUser();
-            if (friendId != user.getId()) {
-                User friend = userRepository.findById(friendId)
-                        .orElseThrow(() -> new EntityNotFoundException("Friend not found"));
+        for (User friend : user.getFriends()) {
                 friendList.add(friend.getName());
             }
-
-        }
         return friendList;
+    }
+
+    public User addFriend(Long senderId, Long receiverId) throws Exception{
+        User sender = userRepository.findById(senderId)
+                .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+        User receiver =userRepository.findById(receiverId)
+                .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+
+
+
+        List<User> friends = sender.getFriends();
+
+        friends.add(receiver);
+
+        sender.setFriends(friends);
+
+        userRepository.save(sender);
+
+       return sender;
     }
 
 }

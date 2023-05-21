@@ -28,9 +28,9 @@ public class User {
     @ManyToMany
     @JoinTable
             ( name = "Friendship",
-                    joinColumns = @JoinColumn( name = "receiverUser" ),
-                    inverseJoinColumns = @JoinColumn( name = "senderUser" ) )
-    private List<Friendship> friends = new ArrayList<>();
+                    joinColumns = @JoinColumn( name = "receiverUser",referencedColumnName = "id" ),
+                    inverseJoinColumns = @JoinColumn( name = "senderUser",referencedColumnName = "id"  ) )
+    private List<User> friends = new ArrayList<>();
 
     @OneToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
