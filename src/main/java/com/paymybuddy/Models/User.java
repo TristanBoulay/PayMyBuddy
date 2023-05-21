@@ -28,12 +28,12 @@ public class User {
     @ManyToMany
     @JoinTable
             ( name = "Friendship",
-                    joinColumns = @JoinColumn( name = "receiverUser_id" ),
-                    inverseJoinColumns = @JoinColumn( name = "senderUser_id" ) )
-    private List<Friendship> friendshipList = new ArrayList<>();
+                    joinColumns = @JoinColumn( name = "receiverUser" ),
+                    inverseJoinColumns = @JoinColumn( name = "senderUser" ) )
+    private List<Friendship> friends = new ArrayList<>();
 
     @OneToOne (cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "id")
     private Account account;
 
 

@@ -1,6 +1,8 @@
 package com.paymybuddy.Controllers;
 
+import com.paymybuddy.Models.Account;
 import com.paymybuddy.Models.Transaction;
+import com.paymybuddy.Models.TransactionType;
 import com.paymybuddy.Services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +16,17 @@ public class TransactionController {
 
     @Autowired
     private TransactionService transactionService;
+    @Autowired
+    private TransactionType transactionType;
 
     @PostMapping("/deposit")
-    public ResponseEntity<Transaction> addDeposit(@RequestParam("userId") Long userId, @RequestParam("amount") double amount) {
-        Transaction deposit = transactionService.addDeposit(userId, amount);
+    public ResponseEntity<Transaction> addDeposit(@RequestParam("userId") Long userId, @RequestParam("amount") float amount, @RequestParam("type")TransactionType transactionType) throws Exception {
+        Transaction deposit = transactionService.addDeposit(userId, amount, transactionType.DEPOT);
         return ResponseEntity.ok(deposit);
     }
 
     @GetMapping("/deposit")
-    public ResponseEntity<List<Transaction>> listDeposits(@RequestParam("userId") Long userId) {
+    public ResponseEntity<List<Transaction>> listDeposits(@RequestParam("userId") Account userId) {
         List<Transaction> deposits = transactionService.listDeposits(userId);
         return ResponseEntity.ok(deposits);
     }
@@ -34,8 +38,8 @@ public class TransactionController {
     }
 
     @GetMapping("/balance-sheet")
-    public ResponseEntity<Double> getBalanceSheet(@RequestParam("userId") Long userId) {
-        double balanceSheet = transactionService.getBalanceSheet(userId);
+    public ResponseEntity<Double> getBalanceSheet(@RequestParam("userId") Account userId) {
+        double balanceSheet = transactionService.getBalanceByAccountId(userId);
         return ResponseEntity.ok(balanceSheet);
     }
 }

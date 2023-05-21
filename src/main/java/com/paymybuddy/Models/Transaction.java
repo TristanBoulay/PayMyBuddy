@@ -1,9 +1,11 @@
 package com.paymybuddy.Models;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Getter
+@Setter
 @Entity
 @Table(name = "Transaction")
 public class Transaction {
@@ -16,6 +18,10 @@ public class Transaction {
 
     @Column
     private float amount;
+
+    @ManyToOne
+    @JoinColumn(name = "accountId")
+    private Account account;
 
 
 }

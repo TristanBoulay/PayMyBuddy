@@ -1,7 +1,6 @@
 package com.paymybuddy.Models;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,14 +13,14 @@ import java.util.List;
 public class Account {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.EAGER
     )
-    @JoinColumn (name = "account_id")
+    @JoinColumn (name = "id")
     List <Transaction> transactions = new ArrayList<>();
 
 

@@ -12,21 +12,26 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-
 @Configuration
 @EnableWebSecurity
 public class SpringSecuConfig  {
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http)  {
 
-        http.authorizeRequests()
-                .requestMatchers("/login").permitAll()
-                .requestMatchers("/**").authenticated()
-                .and()
-                .formLogin().permitAll()
-                .and()
-                .oauth2Login();
-        return http.build();
+       try {
+           http.authorizeRequests()
+                   .requestMatchers("/login").permitAll()
+                   .requestMatchers("/**").authenticated()
+                   .and()
+                   .formLogin().permitAll()
+                   .and()
+                   .oauth2Login();
+           return http.build();
+       }
+       catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
     }
     @Bean
     public UserDetailsService userDetailsService() {
@@ -50,3 +55,5 @@ public class SpringSecuConfig  {
 
 
 }
+
+

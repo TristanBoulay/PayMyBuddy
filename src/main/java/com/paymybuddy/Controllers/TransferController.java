@@ -17,13 +17,21 @@ public class TransferController {
 
 
 
-        @PostMapping("/add")
-        public ResponseEntity<Transfer> addTransfer(@ModelAttribute Transfer transfer) {
-            Transfer savedTransfer = transferService.addTransfer(transfer);
+    @PostMapping("/add")
+    public ResponseEntity<Transfer> addTransfer(@RequestParam Long senderAccountId,
+                                                @RequestParam Long receiverAccountId,
+                                                @RequestParam String description,
+                                                @RequestParam float amount) {
+        try {
+            Transfer savedTransfer = transferService.addTransfer(senderAccountId, receiverAccountId, description, amount);
             return ResponseEntity.ok(savedTransfer);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to add transfer", e);
         }
+    }
 
-        @GetMapping("/list")
+
+    @GetMapping("/list")
         public ResponseEntity<List<Transfer>> getAllTransfers() {
             List<Transfer> transfers = transferService.getAllTransfers();
             return ResponseEntity.ok(transfers);

@@ -1,13 +1,17 @@
 package com.paymybuddy.Models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table( name = "Transfer")
 public class Transfer {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     @Column
     private String description;

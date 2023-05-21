@@ -1,19 +1,54 @@
 package com.paymybuddy.Services;
 
+import com.paymybuddy.Models.Account;
+import com.paymybuddy.Models.TransactionType;
 import com.paymybuddy.Models.Transfer;
+import com.paymybuddy.Repository.AccountRepository;
+import com.paymybuddy.Repository.TransferRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class TransferService {
-    public Transfer addTransfer(Transfer transfer) {
-    Transfer transfer1= null;
-    return null;
+
+    private final TransferRepository transferRepository;
+
+
+    private final AccountRepository accountRepository;
+    private final TransactionService transactionService;
+    @Autowired
+    public TransferService(TransferRepository transferRepository, AccountRepository accountRepository, TransactionService transactionService) {
+        this.transferRepository = transferRepository;
+        this.accountRepository = accountRepository;
+        this.transactionService = transactionService;
+    }
+
+
+    public Transfer addTransfer(Long senderAccountId, Long receiverAccountId, String description, float amount) throws Exception {
+        Account senderAccount = accountRepository.findById(senderAccountId)
+                .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+        Account receiverAccount = accountRepository.findById(receiverAccountId)
+                .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+
+        double senderBalance = transactionService.getBalanceByAccountId(senderAccount);
+        if (senderBalance < amount) throw new Exception("Insufficient balance in the sender's account");
+
+        transactionService.addWithdrawal(senderAccountId, amount);
+        transactionService.addDeposit(receiverAccountId, amount, TransactionType.DEPOT);
+
+        Transfer transfer = new Transfer();
+        transfer.setDescription(description);
+        transfer.setAmount(amount);
+        transfer.setSenderAccount(senderAccount);
+        transfer.setReceiverAccount(receiverAccount);
+
+        return transferRepository.save(transfer);
     }
 
     public List<Transfer> getAllTransfers() {
-        List<Transfer> transferList= null;
-        return null;
+        return transferRepository.findAll();
     }
 }
