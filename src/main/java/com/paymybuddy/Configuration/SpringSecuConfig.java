@@ -1,59 +1,39 @@
-package com.paymybuddy.Configuration;
-
+import com.paymybuddy.Services.JpaUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SpringSecuConfig  {
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http)  {
+@EnableMethodSecurity
+public class SpringSecuConfig {
 
-       try {
-           http.authorizeRequests()
-                   .requestMatchers("/login").permitAll()
-                   .requestMatchers("/**").authenticated()
-                   .and()
-                   .formLogin().permitAll()
-                   .and()
-                   .oauth2Login();
-           return http.build();
-       }
-       catch (Exception e){
-            System.out.println(e);
-            return null;
-        }
+    private final JpaUserDetailsService jpaUserDetailsService;
+    public SpringSecuConfig(JpaUserDetailsService jpaUserDetailsService){
+        this.jpaUserDetailsService = jpaUserDetailsService;
     }
+
+
+
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.builder()
-                .username("user")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER")
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.authorizeRequests(auth-> auth.requestMatchers("/users").permitAll()
+        .anyRequest().authenticated())
+                .userDetailsService(jpaUserDetailsService)
+                .httpBasic(Customizer.withDefaults())
                 .build();
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER", "ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(user, admin);
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
     }
 
 
 }
-
-
