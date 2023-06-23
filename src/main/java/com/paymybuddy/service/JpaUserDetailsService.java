@@ -23,6 +23,5 @@ public class JpaUserDetailsService implements UserDetailsService
         return userRepository.findByName(username)
                 .map(SecurityUser::new )
                 .orElseThrow(()-> new UsernameNotFoundException("User name not found :"+ username));
-
     }
 }
