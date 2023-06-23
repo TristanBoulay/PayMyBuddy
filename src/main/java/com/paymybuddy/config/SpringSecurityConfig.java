@@ -1,6 +1,6 @@
 package com.paymybuddy.config;
 
-import com.paymybuddy.service.JpaUserDetailsService;
+import com.paymybuddy.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -10,11 +10,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-public class SpringSecuConfig
+public class SpringSecurityConfig
 {
-    private final JpaUserDetailsService jpaUserDetailsService;
-    public SpringSecuConfig(JpaUserDetailsService jpaUserDetailsService){
-        this.jpaUserDetailsService = jpaUserDetailsService;
+    private final UserService userService;
+    public SpringSecurityConfig(UserService userService){
+        this.userService = userService;
     }
 
     @Bean
@@ -37,7 +37,7 @@ public class SpringSecuConfig
                                 .loginPage("/login")
                                 .defaultSuccessUrl("/home", true)
                 )
-                .userDetailsService(jpaUserDetailsService)
+                .userDetailsService(userService)
                 .logout(Customizer.withDefaults());
         return http.build();
     }
