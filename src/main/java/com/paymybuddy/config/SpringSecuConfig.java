@@ -1,5 +1,6 @@
 package com.paymybuddy.config;
 
+import com.paymybuddy.service.JpaUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -11,6 +12,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SpringSecuConfig
 {
+    private final JpaUserDetailsService jpaUserDetailsService;
+    public SpringSecuConfig(JpaUserDetailsService jpaUserDetailsService){
+        this.jpaUserDetailsService = jpaUserDetailsService;
+    }
+
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception
     {
@@ -31,6 +37,7 @@ public class SpringSecuConfig
                                 .loginPage("/login")
                                 .defaultSuccessUrl("/home", true)
                 )
+                .userDetailsService(jpaUserDetailsService)
                 .logout(Customizer.withDefaults());
         return http.build();
     }
