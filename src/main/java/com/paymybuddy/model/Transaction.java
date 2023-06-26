@@ -8,7 +8,8 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "Transaction")
-public class Transaction {
+public class Transaction
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,6 +23,5 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name = "accountId")
     private Account account;
-
 
 }

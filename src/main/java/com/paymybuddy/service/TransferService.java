@@ -5,7 +5,6 @@ import com.paymybuddy.model.TransactionType;
 import com.paymybuddy.model.Transfer;
 import com.paymybuddy.repository.AccountRepository;
 import com.paymybuddy.repository.TransferRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
@@ -15,22 +14,20 @@ import java.util.List;
 public class TransferService
 {
     private final TransferRepository transferRepository;
-
     private final AccountRepository accountRepository;
     private final TransactionService transactionService;
     @Autowired
-    public TransferService(TransferRepository transferRepository, AccountRepository accountRepository, TransactionService transactionService) {
+    public TransferService(TransferRepository transferRepository, AccountRepository accountRepository, TransactionService transactionService)
+    {
         this.transferRepository = transferRepository;
         this.accountRepository = accountRepository;
         this.transactionService = transactionService;
     }
 
-
-    public Transfer addTransfer(Long senderAccountId, Long receiverAccountId, String description, float amount) throws Exception {
-        Account senderAccount = accountRepository.findById(senderAccountId)
-                .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
-        Account receiverAccount = accountRepository.findById(receiverAccountId)
-                .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+    public Transfer addTransfer(Long senderAccountId, Long receiverAccountId, String description, float amount) throws Exception
+    {
+        Account senderAccount = accountRepository.findById(senderAccountId).orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+        Account receiverAccount = accountRepository.findById(receiverAccountId).orElseThrow(() -> new ChangeSetPersister.NotFoundException());
 
         double senderBalance = transactionService.getBalanceByAccountId(senderAccount);
         if (senderBalance < amount) throw new Exception("Insufficient balance in the sender's account");
@@ -49,7 +46,8 @@ public class TransferService
     }
 
 
-    public List<Transfer> getAllTransfers() {
+    public List<Transfer> getAllTransfers()
+    {
         return transferRepository.findAll();
     }
 }

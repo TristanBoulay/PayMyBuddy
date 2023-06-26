@@ -10,5 +10,4 @@ Friendship
 {
     @EmbeddedId
     private FriendshipId id;
-
 }

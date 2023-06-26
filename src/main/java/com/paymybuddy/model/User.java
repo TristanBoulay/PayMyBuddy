@@ -3,14 +3,16 @@ package com.paymybuddy.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+
 @Getter
 @Setter
 @Entity
 @Table(name="User")
-public class User
+public class User implements UserDetails
 {
 
     @Id
@@ -29,6 +31,50 @@ public class User
     // TODO : mettre en place une enum
     @Column
     private String role;
+
+    public User(User user)
+    {
+    }
+
+    public User()
+    {
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities()
+    {
+        return null;
+    }
+
+    @Override
+    public String getUsername()
+    {
+        return this.name;
+    }
+
+    @Override
+    public boolean isAccountNonExpired()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled()
+    {
+        return true;
+    }
 
     /*
     @ManyToMany

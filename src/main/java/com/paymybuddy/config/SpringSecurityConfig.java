@@ -42,6 +42,7 @@ public class SpringSecurityConfig
                 .logout(Customizer.withDefaults());
         return http.build();
     }
+
     @Bean
     public PasswordEncoder passwordEncoder()
     {

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class UserService implements UserDetailsService
 {
     private final UserRepository userRepository;
-
     public UserService(UserRepository userRepository)
     {
         this.userRepository = userRepository;
@@ -34,5 +33,4 @@ public class UserService implements UserDetailsService
                 .map(SecurityUser::new )
                 .orElseThrow(()-> new UsernameNotFoundException("User name not found :"+ username));
     }
-
 }
