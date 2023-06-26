@@ -24,6 +24,7 @@ public class SpringSecurityConfig
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/login").permitAll()
+                                .requestMatchers("/images/**").permitAll()
                                 .requestMatchers("/admin/**").hasAuthority("admin")
                                 .anyRequest().authenticated()
                 )
