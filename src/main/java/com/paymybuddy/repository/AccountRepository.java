@@ -1,6 +1,6 @@
-package com.paymybuddy.Repository;
+package com.paymybuddy.repository;
 
-import com.paymybuddy.Models.Account;
+import com.paymybuddy.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

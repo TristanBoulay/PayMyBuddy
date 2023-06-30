@@ -1,6 +1,6 @@
 package com.paymybuddy.ControllerTest;
 
-import com.paymybuddy.Models.User;
+import com.paymybuddy.model.User;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;

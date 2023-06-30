@@ -1,11 +1,11 @@
-package com.paymybuddy.Models;
+package com.paymybuddy.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 public class SecurityUser implements UserDetails {
 
@@ -27,11 +27,9 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(user
-                .getRoles()
-                .split(","))
-                .map(SimpleGrantedAuthority::new)
-                .toList();
+        RoleType roleType = user.getRoleType();
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(roleType.name());
+        return Collections.singletonList(authority);
     }
 
 

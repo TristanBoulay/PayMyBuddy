@@ -1,4 +1,4 @@
-package com.paymybuddy.Models;
+package com.paymybuddy.model;
 
 import lombok.Getter;
 

@@ -1,7 +1,7 @@
-package com.paymybuddy.Services;
+package com.paymybuddy.service;
 
-import com.paymybuddy.Models.SecurityUser;
-import com.paymybuddy.Repository.UserRepository;
+import com.paymybuddy.model.SecurityUser;
+import com.paymybuddy.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

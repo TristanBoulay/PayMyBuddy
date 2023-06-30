@@ -1,10 +1,10 @@
-package com.paymybuddy.Services;
+package com.paymybuddy.service;
 
-import com.paymybuddy.Models.Account;
-import com.paymybuddy.Models.Transaction;
-import com.paymybuddy.Models.TransactionType;
-import com.paymybuddy.Repository.AccountRepository;
-import com.paymybuddy.Repository.TransactionRepository;
+import com.paymybuddy.model.Account;
+import com.paymybuddy.model.Transaction;
+import com.paymybuddy.model.TransactionType;
+import com.paymybuddy.repository.AccountRepository;
+import com.paymybuddy.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

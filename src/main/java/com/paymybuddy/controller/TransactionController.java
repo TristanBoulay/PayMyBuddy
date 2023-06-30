@@ -1,9 +1,9 @@
-package com.paymybuddy.Controllers;
+package com.paymybuddy.controller;
 
-import com.paymybuddy.Models.Account;
-import com.paymybuddy.Models.Transaction;
-import com.paymybuddy.Models.TransactionType;
-import com.paymybuddy.Services.TransactionService;
+import com.paymybuddy.model.Account;
+import com.paymybuddy.model.Transaction;
+import com.paymybuddy.model.TransactionType;
+import com.paymybuddy.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ public class TransactionController {
 
     @Autowired
     private TransactionService transactionService;
-    @Autowired
+
     private TransactionType transactionType;
 
     @PostMapping("/deposit")

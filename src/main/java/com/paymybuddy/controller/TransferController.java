@@ -1,7 +1,7 @@
-package com.paymybuddy.Controllers;
+package com.paymybuddy.controller;
 
-import com.paymybuddy.Models.Transfer;
-import com.paymybuddy.Services.TransferService;
+import com.paymybuddy.model.Transfer;
+import com.paymybuddy.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

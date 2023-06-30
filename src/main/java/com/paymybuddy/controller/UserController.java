@@ -1,8 +1,8 @@
-package com.paymybuddy.Controllers;
+package com.paymybuddy.controller;
 
 
-import com.paymybuddy.Models.User;
-import com.paymybuddy.Services.UserService;
+import com.paymybuddy.model.User;
+import com.paymybuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,11 +26,11 @@ public class UserController {
         return ResponseEntity.ok(savedUser);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> loginUser() {
-        String message = "Logged in successfully!";
-        return ResponseEntity.ok(message);
-    }
+
+
+
+
+
 
     @PostMapping("/logout")
     public ResponseEntity<String> logoutUser() {

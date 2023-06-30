@@ -1,8 +1,7 @@
-package com.paymybuddy.Services;
+package com.paymybuddy.service;
 
-import com.paymybuddy.Models.User;
-import com.paymybuddy.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.paymybuddy.model.User;
+import com.paymybuddy.repository.UserRepository;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
 
-    @Autowired
+
     private User user;
 
     public UserService(UserRepository userRepository) {
@@ -25,6 +24,7 @@ public class UserService {
     public User modifyUserSettings(@ModelAttribute User user) {
         user.setPassword(user.getPassword());
         user.setEmail(user.getEmail());
+        user.setRoleType(user.getRoleType());
         userRepository.save(user);
         return user;
     }

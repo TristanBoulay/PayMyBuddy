@@ -1,4 +1,4 @@
-package com.paymybuddy.Models;
+package com.paymybuddy.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,7 +15,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String roles;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
 
     @Column
     private String name;

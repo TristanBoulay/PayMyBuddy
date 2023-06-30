@@ -1,9 +1,9 @@
 package com.paymybuddy.ControllerTest;
 
-import com.paymybuddy.Models.Account;
+import com.paymybuddy.model.Account;
 import com.paymybuddy.Models.Friendship;
-import com.paymybuddy.Models.User;
-import com.paymybuddy.Services.UserService;
+import com.paymybuddy.model.User;
+import com.paymybuddy.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

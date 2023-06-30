@@ -1,8 +1,8 @@
-package com.paymybuddy.Repository;
+package com.paymybuddy.repository;
 
-import com.paymybuddy.Models.Account;
-import com.paymybuddy.Models.Transaction;
-import com.paymybuddy.Models.TransactionType;
+import com.paymybuddy.model.Account;
+import com.paymybuddy.model.Transaction;
+import com.paymybuddy.model.TransactionType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
