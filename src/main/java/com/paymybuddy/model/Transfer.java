@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table( name = "Transfer")
+
 public class Transfer {
     @Id
     @GeneratedValue

@@ -9,7 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name="User")
 public class User {
 
     @Id
