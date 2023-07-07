@@ -33,11 +33,11 @@ public class SpringSecurityConfig
                                 .loginPage("/login")
                                 .defaultSuccessUrl("/home", true)
                 )
-                .oauth2Login(oauth2Login ->
+                /*.oauth2Login(oauth2Login ->
                         oauth2Login
                                 .loginPage("/login")
                                 .defaultSuccessUrl("/home", true)
-                )
+                )*/
                 .userDetailsService(userService)
                 .logout(Customizer.withDefaults());
         return http.build();
